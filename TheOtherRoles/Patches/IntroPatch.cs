@@ -151,6 +151,13 @@ namespace TheOtherRoles.Patches {
     [HarmonyPatch]
     class IntroPatch {
         public static void setupIntroTeamIcons(IntroCutscene __instance, ref  Il2CppSystem.Collections.Generic.List<PlayerControl> yourTeam) {
+            if (!TORMapOptions.impostorsKnowTeammates && CachedPlayer.LocalPlayer.Data.Role.IsImpostor) {
+                var soloImpostorTeam = new Il2CppSystem.Collections.Generic.List<PlayerControl>();
+                soloImpostorTeam.Add(CachedPlayer.LocalPlayer.PlayerControl);
+                yourTeam = soloImpostorTeam;
+                return;
+            }
+
             // Intro solo teams
             if (Helpers.isNeutral(CachedPlayer.LocalPlayer.PlayerControl)) {
                 var soloTeam = new Il2CppSystem.Collections.Generic.List<PlayerControl>();
@@ -195,7 +202,7 @@ namespace TheOtherRoles.Patches {
         [HarmonyPatch(typeof(IntroCutscene), nameof(IntroCutscene.CreatePlayer))]
         class CreatePlayerPatch {
             public static void Postfix(IntroCutscene __instance, bool impostorPositioning, ref PoolablePlayer __result) {
-                if (impostorPositioning) __result.SetNameColor(Palette.ImpostorRed);
+                if (impostorPositioning && TORMapOptions.impostorsKnowTeammates) __result.SetNameColor(Palette.ImpostorRed);
             }
         }
 
@@ -281,4 +288,3 @@ namespace TheOtherRoles.Patches {
         }
     }
 }
-

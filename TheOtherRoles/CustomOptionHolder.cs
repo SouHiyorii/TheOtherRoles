@@ -304,6 +304,7 @@ namespace TheOtherRoles {
         public static CustomOption blockSkippingInEmergencyMeetings;
         public static CustomOption noVoteIsSelfVote;
         public static CustomOption hidePlayerNames;
+        public static CustomOption impostorsKnowTeammates;
         public static CustomOption allowParallelMedBayScans;
         public static CustomOption shieldFirstKill;
         public static CustomOption finishTasksBeforeHauntingOrZoomingOut;
@@ -784,6 +785,7 @@ namespace TheOtherRoles {
             blockSkippingInEmergencyMeetings = CustomOption.Create(4, Types.General, "Block Skipping In Emergency Meetings", false);
             noVoteIsSelfVote = CustomOption.Create(5, Types.General, "No Vote Is Self Vote", false, blockSkippingInEmergencyMeetings);
             hidePlayerNames = CustomOption.Create(6, Types.General, "Hide Player Names", false);
+            impostorsKnowTeammates = CustomOption.Create(10, Types.General, "Impostors Know Teammates", true);
             allowParallelMedBayScans = CustomOption.Create(7, Types.General, "Allow Parallel MedBay Scans", false);
             shieldFirstKill = CustomOption.Create(8, Types.General, "Shield Last Game First Kill", false);
             finishTasksBeforeHauntingOrZoomingOut = CustomOption.Create(9, Types.General, "Finish Tasks Before Haunting Or Zooming Out", true);

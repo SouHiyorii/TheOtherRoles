@@ -329,7 +329,12 @@ namespace TheOtherRoles.Patches {
             }
 
             PlayerControl target = null;
-            if (Spy.spy != null || Sidekick.wasSpy || Jackal.wasSpy) {
+            if (!TORMapOptions.impostorsKnowTeammates) {
+                // If impostors should not know each other, let the kill targeting work on everyone except self.
+                // Otherwise players can detect teammates by seeing who is not targetable.
+                target = setTarget(false, true);
+            }
+            else if (Spy.spy != null || Sidekick.wasSpy || Jackal.wasSpy) {
                 if (Spy.impostorsCanKillAnyone) {
                     target = setTarget(false, true);
                 }

@@ -37,7 +37,7 @@ namespace TheOtherRoles.Patches {
                     var nameText = player.cosmetics.nameText;
                 
                     nameText.text = Helpers.hidePlayerName(localPlayer, player) ? "" : playerName;
-                    nameText.color = color = amImpostor && data.Role.IsImpostor ? Palette.ImpostorRed : Color.white;
+                    nameText.color = color = TORMapOptions.impostorsKnowTeammates && amImpostor && data.Role.IsImpostor ? Palette.ImpostorRed : Color.white;
                     nameText.color = nameText.color.SetAlpha(Chameleon.visibility(player.PlayerId));
                 }
                 else
@@ -155,13 +155,13 @@ namespace TheOtherRoles.Patches {
             }
 
             // No else if here, as the Impostors need the Spy name to be colored
-            if (Spy.spy != null && localPlayer.Data.Role.IsImpostor) {
+            if (TORMapOptions.impostorsKnowTeammates && Spy.spy != null && localPlayer.Data.Role.IsImpostor) {
                 setPlayerNameColor(Spy.spy, Spy.color);
             }
-            if (Sidekick.sidekick != null && Sidekick.wasTeamRed && localPlayer.Data.Role.IsImpostor) {
+            if (TORMapOptions.impostorsKnowTeammates && Sidekick.sidekick != null && Sidekick.wasTeamRed && localPlayer.Data.Role.IsImpostor) {
                 setPlayerNameColor(Sidekick.sidekick, Spy.color);
             }
-            if (Jackal.jackal != null && Jackal.wasTeamRed && localPlayer.Data.Role.IsImpostor) {
+            if (TORMapOptions.impostorsKnowTeammates && Jackal.jackal != null && Jackal.wasTeamRed && localPlayer.Data.Role.IsImpostor) {
                 setPlayerNameColor(Jackal.jackal, Spy.color);
             }
 
@@ -171,7 +171,7 @@ namespace TheOtherRoles.Patches {
 
         static void setNameTags() {
             // Mafia
-            if (CachedPlayer.LocalPlayer != null && CachedPlayer.LocalPlayer.Data.Role.IsImpostor) {
+            if (TORMapOptions.impostorsKnowTeammates && CachedPlayer.LocalPlayer != null && CachedPlayer.LocalPlayer.Data.Role.IsImpostor) {
                 foreach (PlayerControl player in CachedPlayer.AllPlayers)
                     if (Godfather.godfather != null && Godfather.godfather == player)
                             player.cosmetics.nameText.text = player.Data.PlayerName + " (G)";
