@@ -37,7 +37,7 @@ namespace TheOtherRoles.Patches {
                     var nameText = player.cosmetics.nameText;
                 
                     nameText.text = Helpers.hidePlayerName(localPlayer, player) ? "" : playerName;
-                    nameText.color = color = amImpostor && data.Role.IsImpostor ? Palette.ImpostorRed : Color.white;
+                    nameText.color = color = amImpostor && data.Role.IsImpostor && !TORMapOptions.impostorsDontKnowEachOther ? Palette.ImpostorRed : Color.white;
                     nameText.color = nameText.color.SetAlpha(Chameleon.visibility(player.PlayerId));
                 }
                 else
@@ -155,13 +155,13 @@ namespace TheOtherRoles.Patches {
             }
 
             // No else if here, as the Impostors need the Spy name to be colored
-            if (Spy.spy != null && localPlayer.Data.Role.IsImpostor) {
+            if (Spy.spy != null && localPlayer.Data.Role.IsImpostor && !TORMapOptions.impostorsDontKnowEachOther) {
                 setPlayerNameColor(Spy.spy, Spy.color);
             }
-            if (Sidekick.sidekick != null && Sidekick.wasTeamRed && localPlayer.Data.Role.IsImpostor) {
+            if (Sidekick.sidekick != null && Sidekick.wasTeamRed && localPlayer.Data.Role.IsImpostor && !TORMapOptions.impostorsDontKnowEachOther) {
                 setPlayerNameColor(Sidekick.sidekick, Spy.color);
             }
-            if (Jackal.jackal != null && Jackal.wasTeamRed && localPlayer.Data.Role.IsImpostor) {
+            if (Jackal.jackal != null && Jackal.wasTeamRed && localPlayer.Data.Role.IsImpostor && !TORMapOptions.impostorsDontKnowEachOther) {
                 setPlayerNameColor(Jackal.jackal, Spy.color);
             }
 
@@ -172,21 +172,25 @@ namespace TheOtherRoles.Patches {
         static void setNameTags() {
             // Mafia
             if (CachedPlayer.LocalPlayer != null && CachedPlayer.LocalPlayer.Data.Role.IsImpostor) {
-                foreach (PlayerControl player in CachedPlayer.AllPlayers)
+                foreach (PlayerControl player in CachedPlayer.AllPlayers) {
+                    if (TORMapOptions.impostorsDontKnowEachOther && player != CachedPlayer.LocalPlayer.PlayerControl) continue;
                     if (Godfather.godfather != null && Godfather.godfather == player)
                             player.cosmetics.nameText.text = player.Data.PlayerName + " (G)";
                     else if (Mafioso.mafioso != null && Mafioso.mafioso == player)
                             player.cosmetics.nameText.text = player.Data.PlayerName + " (M)";
                     else if (Janitor.janitor != null && Janitor.janitor == player)
                             player.cosmetics.nameText.text = player.Data.PlayerName + " (J)";
+                }
                 if (MeetingHud.Instance != null)
-                    foreach (PlayerVoteArea player in MeetingHud.Instance.playerStates)
+                    foreach (PlayerVoteArea player in MeetingHud.Instance.playerStates) {
+                        if (TORMapOptions.impostorsDontKnowEachOther && CachedPlayer.LocalPlayer.PlayerId != player.TargetPlayerId) continue;
                         if (Godfather.godfather != null && Godfather.godfather.PlayerId == player.TargetPlayerId)
                             player.NameText.text = Godfather.godfather.Data.PlayerName + " (G)";
                         else if (Mafioso.mafioso != null && Mafioso.mafioso.PlayerId == player.TargetPlayerId)
                             player.NameText.text = Mafioso.mafioso.Data.PlayerName + " (M)";
                         else if (Janitor.janitor != null && Janitor.janitor.PlayerId == player.TargetPlayerId)
                             player.NameText.text = Janitor.janitor.Data.PlayerName + " (J)";
+                    }
             }
 
             // Lovers

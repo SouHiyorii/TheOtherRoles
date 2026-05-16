@@ -214,7 +214,10 @@ namespace TheOtherRoles.Patches {
             if (Vampire.vampire == null || Vampire.vampire != CachedPlayer.LocalPlayer.PlayerControl) return;
 
             PlayerControl target = null;
-            if (Spy.spy != null || Sidekick.wasSpy || Jackal.wasSpy) {
+            if (TORMapOptions.impostorsDontKnowEachOther) {
+                target = setTarget(false, true);
+            }
+            else if (Spy.spy != null || Sidekick.wasSpy || Jackal.wasSpy) {
                 if (Spy.impostorsCanKillAnyone) {
                     target = setTarget(false, true);
                 }
@@ -329,7 +332,10 @@ namespace TheOtherRoles.Patches {
             }
 
             PlayerControl target = null;
-            if (Spy.spy != null || Sidekick.wasSpy || Jackal.wasSpy) {
+            if (TORMapOptions.impostorsDontKnowEachOther) {
+                target = setTarget(false, true);
+            }
+            else if (Spy.spy != null || Sidekick.wasSpy || Jackal.wasSpy) {
                 if (Spy.impostorsCanKillAnyone) {
                     target = setTarget(false, true);
                 }

@@ -158,6 +158,13 @@ namespace TheOtherRoles.Patches {
                 yourTeam = soloTeam;
             }
 
+            if (TORMapOptions.impostorsDontKnowEachOther && CachedPlayer.LocalPlayer.Data.Role.IsImpostor) {
+                var soloTeam = new Il2CppSystem.Collections.Generic.List<PlayerControl>();
+                soloTeam.Add(CachedPlayer.LocalPlayer.PlayerControl);
+                yourTeam = soloTeam;
+                return;
+            }
+
             // Add the Spy to the Impostor team (for the Impostors)
             if (Spy.spy != null && CachedPlayer.LocalPlayer.Data.Role.IsImpostor) {
                 List<PlayerControl> players = PlayerControl.AllPlayerControls.ToArray().ToList().OrderBy(x => Guid.NewGuid()).ToList();

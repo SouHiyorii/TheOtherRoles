@@ -18,6 +18,7 @@ namespace TheOtherRoles{
         public static bool enableSoundEffects = true;
         public static bool enableHorseMode = false;
         public static bool shieldFirstKill = false;
+        public static bool impostorsDontKnowEachOther = false;
         public static bool ShowVentsOnMap = true;
         public static CustomGamemodes gameMode = CustomGamemodes.Classic;
 
@@ -41,6 +42,7 @@ namespace TheOtherRoles{
             hidePlayerNames = CustomOptionHolder.hidePlayerNames.getBool();
             allowParallelMedBayScans = CustomOptionHolder.allowParallelMedBayScans.getBool();
             shieldFirstKill = CustomOptionHolder.shieldFirstKill.getBool();
+            impostorsDontKnowEachOther = CustomOptionHolder.impostorsDontKnowEachOther.getBool();
             firstKillPlayer = null;
         }
 

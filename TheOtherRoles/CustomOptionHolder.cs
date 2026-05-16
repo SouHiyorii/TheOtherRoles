@@ -20,6 +20,7 @@ namespace TheOtherRoles {
         public static CustomOption impostorRolesCountMax;
         public static CustomOption modifiersCountMin;
         public static CustomOption modifiersCountMax;
+        public static CustomOption impostorsDontKnowEachOther;
 
         public static CustomOption enableCodenameHorsemode;
         public static CustomOption enableCodenameDisableHorses;
@@ -789,6 +790,7 @@ namespace TheOtherRoles {
             finishTasksBeforeHauntingOrZoomingOut = CustomOption.Create(9, Types.General, "Finish Tasks Before Haunting Or Zooming Out", true);
             camsNightVision = CustomOption.Create(11, Types.General, "Cams Switch To Night Vision If Lights Are Off", false, null, true);
             camsNoNightVisionIfImpVision = CustomOption.Create(12, Types.General, "Impostor Vision Ignores Night Vision Cams", false, camsNightVision, false);
+            impostorsDontKnowEachOther = CustomOption.Create(13, Types.General, "Impostors Don't Know Each Other", false);
 
 
             dynamicMap = CustomOption.Create(500, Types.General, "Play On A Random Map", false, null, true);
